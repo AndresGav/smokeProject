@@ -25,7 +25,7 @@ const body = JSON.stringify({
 const configuracion = {
   headers: {
     Authorization:
-      "Bearer EAAE5l6I2PG8BAHuCbudS4Nm0JcFHvBKxEQ2qCnfiJzjuy1UqcDMS3zUSPjOEWKnaWKURXrIhqSC4tq9pe39ZAZAZBHEutXPdQDvdrmJ54MWMs6yQ2J9lIV2TZAHN7zbsLdBOUZCCqR6aaDfNuBHJ2XvW5rNOrHEWpBaefV5U58PdVzXDsCrQ43fyqqpRcY3ugd6QQKRGvN0ZAXX4kTmMZAAWGCYRwzu9ykZD",
+      "Bearer EAAE5l6I2PG8BADp3PYfiDttUc6f6ZCjARhtXeBiMpEOJ1dc3MEJ1WZBlWWRhzo48kXiMpSTyRurLZBGlQuiev8pEJyKw3ErAklkK1aZCvvdMSdXHpwJT8qIsdk8trZAdullumOcaX0csO0criTHH1QcZCnijdXKO7oTXyv5JWspZAw1S9m8H7C1F8teZBp606hJMPsWCHf9iRZCFUIG1f7T8bVDzTDW6hWP4ZD",
     "Content-Type": "application/json",
   },
 };
@@ -68,7 +68,7 @@ const dataTool = {
   nivel: "500",
 };
 
-async function insertHumo(nivel, ip) {
+async function insertHumo(nivel, ip, creado) {
   try {
     const db = await connect();
     const result = await db.query(`INSERT INTO Niveles ( nivel, ip)
@@ -81,13 +81,22 @@ async function insertHumo(nivel, ip) {
 
 module.exports = insertHumo;
 
+var today = new Date();
+var date =
+  today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate();
+var time =
+  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date + " " + time + ".000";
+
+console.log(dateTime);
+//2022-05-20 08:30:47.000
 
 //CONEXION DE TIPO SERIAL (SERIAL CONNECTION)
-const SerialPort = require("serialport").SerialPort;;
+const SerialPort = require("serialport");
 const { data } = require("autoprefixer");
 const { emit } = require("process");
 const { default: axios } = require("axios");
-const {Readline}= require('@serialport/parser-readline');
+const Readline = SerialPort.parsers.Readline;
 //SerialPort.close() ;
 const puerto = new SerialPort("COM3", {
   baudRate: 9600,
@@ -114,53 +123,41 @@ async function sendMessage() {
 }
 
 //FUNCION DE SIMULACION DATOS
-// var CronJob = require("cron").CronJob;
+var CronJob = require("cron").CronJob;
 
-// var job = new CronJob(
-//   "* * * * * *",
+var job = new CronJob(  
+  "* * * * * *",
 
-//   function () {
-//     const randomNumber = Math.floor(Math.random() * 500);
+  function () {
+    const randomNumber = Math.floor(Math.random() * 500);
 
-//     console.log("Ejecutando Cron: ", randomNumber);
+    console.log("Ejecutando Cron: ", randomNumber);
 
-//     if (randomNumber > 400) {
-//       //sendMessage(); //NO DESCOMENTAR
-//       insertHumo(randomNumber, dataTool.ip);
-//       console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
+    if (randomNumber > 400) {
+      //sendMessage(); //NO DESCOMENTAR
+      //insertHumo(randomNumber, dataTool.ip);
+      console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
 
-//       function sleep(ms) {
-//         return new Promise((resolve) => setTimeout(resolve, ms));
-//       }
+    
+    }
 
-//        function demo() {
-//         for (let i = 0; i < 10; i++) {
-//           console.log(`Waiting ${i} seconds...`);
-//           sleep(i * 4000);
-//         }
-//         console.log("Done");
-//       }
-
-//       demo();
-//     }
-
-//     io.emit("humo", randomNumber);
-//   },
-//   null,
-//   true,
-//   "America/Los_Angeles"
-// );
+    io.emit("humo", randomNumber);
+  },
+  null,
+  true,
+  "America/Los_Angeles"
+);
 
 //Funcion que extrae los datos que se estan capturando desde el
 //sensor de arduino
-// parser.on("data", function (data) {
-//   lista = humoData.split(" ");
+parser.on("data", function (data) {
+  lista = humoData.split(" ");
 
-//   valorHumo = parseInt(lista[2]); //PPM
+  valorHumo = parseInt(lista[2]); //PPM
 
-//   console.log("soy el valor desde el arduino ", valorHumo);
-//   //io.emit("humo", data);
-// });
+  console.log("soy el valor desde el arduino ", valorHumo);
+  //io.emit("humo", data);
+});
 
 //Funcion que muestra un error en caso de desconexion
 //de Arduino y/o servidor

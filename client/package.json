@@ -15,6 +15,7 @@
     "chartjs-adapter-moment": "^1.0.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "chartjs-plugin-streaming": "^2.0.0",
+    "cron": "^2.0.0",
     "luxon": "^2.4.0",
     "moment": "^2.29.3",
     "next": "12.1.6",

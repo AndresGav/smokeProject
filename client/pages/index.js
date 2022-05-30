@@ -12,14 +12,20 @@ const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
 export default function Home() {
+  let valorPPM = 0
+  socket.on("humo", function (data) {
+    //console.log("DEL SERVER",data)
+    valorPPM = data
+   });
+
   useEffect(() => {
     var CronJob = require("cron").CronJob;
     var job = new CronJob(
       "* * * * * *",
       function () {
         console.log("Mensaje Cada segundo");
-        changeBackColor(500);
-        socket.emit("sendPPM", 34);
+        changeBackColor(valorPPM);
+        //socket.emit("sendPPM", 34);
       },
       null,
       true,
@@ -39,6 +45,7 @@ export default function Home() {
       <main id="cambiarBack" className="w-screen h-screen bg-blue-500  text-center flex flex-col items-center justify-center gap-4">
 
         <CardInfoPpm/>
+
 
         <div >
           <a

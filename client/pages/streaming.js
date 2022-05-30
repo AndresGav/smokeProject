@@ -2,7 +2,7 @@ import Chart from 'chart.js/auto';
 import "chartjs-adapter-luxon";
 import DataLabelsPlugin from "chartjs-plugin-datalabels";
 import StreamingPlugin from "chartjs-plugin-streaming";
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 
 Chart.register(DataLabelsPlugin, StreamingPlugin);
 
@@ -10,8 +10,16 @@ Chart.register(DataLabelsPlugin, StreamingPlugin);
 import generateRanNumber from '../utils/randomNumber';
 import changeBackColor from '../utils/changeBackColor';
 
+const io = require("socket.io-client");
+
+const socket = io("http://localhost:4000");
+
+
 export default function StreamingChart() {
-  
+
+  //const [valorPPM, setPPM] = useState(0)
+
+  let valorPPM = 0
 
   useEffect(() => {
 
@@ -27,12 +35,19 @@ export default function StreamingChart() {
         ]
       };
       
+
+      socket.on("humo", function (data) {
+        //console.log("DEL SERVER",data)
+        valorPPM = data
+       });
+
       const onRefresh = chart => {
+        //console.log("ON REFRESH",valorPPM)
         const now = Date.now();
         chart.data.datasets.forEach(dataset => {
           dataset.data.push({
             x: now,
-            y: generateRanNumber()
+            y: valorPPM
           });
         });
       };
@@ -83,7 +98,7 @@ export default function StreamingChart() {
     return function cleanup() {
       myChart.destroy();
     };
-  });
+  },[]);
 
   return (
     <>
