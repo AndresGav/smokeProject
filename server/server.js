@@ -68,7 +68,7 @@ const dataTool = {
   nivel: "500",
 };
 
-async function insertHumo(nivel, ip, creado) {
+async function insertHumo(nivel, ip) {
   try {
     const db = await connect();
     const result = await db.query(`INSERT INTO Niveles ( nivel, ip)
@@ -81,15 +81,6 @@ async function insertHumo(nivel, ip, creado) {
 
 module.exports = insertHumo;
 
-var today = new Date();
-var date =
-  today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate();
-var time =
-  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date + " " + time + ".000";
-
-console.log(dateTime);
-//2022-05-20 08:30:47.000
 
 //CONEXION DE TIPO SERIAL (SERIAL CONNECTION)
 const SerialPort = require("serialport").SerialPort;;
