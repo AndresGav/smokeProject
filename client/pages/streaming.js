@@ -37,12 +37,12 @@ export default function StreamingChart() {
       
 
       socket.on("humo", function (data) {
-        //console.log("DEL SERVER",data)
+        console.log("DEL SERVER",data)
         valorPPM = data
        });
 
       const onRefresh = chart => {
-        //console.log("ON REFRESH",valorPPM)
+        console.log("ON REFRESH",valorPPM)
         const now = Date.now();
         chart.data.datasets.forEach(dataset => {
           dataset.data.push({

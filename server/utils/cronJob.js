@@ -1,4 +1,4 @@
- function cronJob() {
+ function cronJobDefault() {
   var CronJob = require("cron").CronJob;
   var job = new CronJob(
     "* * * * * *",
@@ -13,4 +13,4 @@
   
 }
 
-module.exports = {cronJob};
+module.exports = cronJobDefault;
