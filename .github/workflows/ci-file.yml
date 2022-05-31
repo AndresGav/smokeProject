@@ -8,7 +8,7 @@ on:
 
 jobs:
   testjs:
-    name: TEST - JS APP - PROD
+    name: TEST FUNCTIONS IN CLIENT
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,7 +21,7 @@ jobs:
         
       - name: CHECKOUT
         uses: actions/checkout@v3
-      - name: Install YARN
+      - name: CHANGE TO DIRECTORY
         working-directory: ./client
         run: npm i
         
@@ -29,5 +29,28 @@ jobs:
      
         run: |
           cd client
+          npm run test
+  testinserver:
+    name: TEST FUNCTIONS IN SERVER
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+        
+      - name: CHECKOUT
+        uses: actions/checkout@v3
+      - name: CHANGE TO DIRECTORY
+        working-directory: ./server
+        run: npm i
+        
+      - name: RUN TEST
+     
+        run: |
+          cd server
           npm run test
   
