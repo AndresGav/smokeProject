@@ -21,9 +21,8 @@ jobs:
         
       - name: CHECKOUT
         uses: actions/checkout@v3
-      - name: change directory
-        working-directory: ./client
       - name: Install YARN
+        working-directory: ./client
         run: npm i
         
       - name: RUN TEST
