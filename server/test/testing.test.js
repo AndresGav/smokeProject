@@ -1,5 +1,6 @@
-const sum = require('../utils/sum');
+const verifyPPM = require('../utils/verifyPPM');
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+test('VERIFYppm > 400', () => {
+  expect(verifyPPM(200)).toBe(false);
+  expect(verifyPPM(500)).toBe(true);
 });
