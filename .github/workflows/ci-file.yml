@@ -1,26 +1,26 @@
-name: SMOKE DETECTION
+name: CI - SMOKE DETECTION
 
 on:
   push:
-    branches: [disable]
+    branches: [disabled]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   testjs:
-    name: UNIT TESTING
+    name: TEST - JS APP - PROD
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
-    
+
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
+        
       - name: CHECKOUT
-      uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Install YARN
         run: yarn
