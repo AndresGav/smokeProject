@@ -13,4 +13,4 @@
   
 }
 
-module.exports = cronJob;
+module.exports = {cronJob};

@@ -83,10 +83,26 @@ module.exports = insertHumo;
 
 
 
+//CONEXION DE TIPO SERIAL (SERIAL CONNECTION)
+const SerialPort = require("serialport");
+const { data } = require("autoprefixer");
+const { emit } = require("process");
+const { default: axios } = require("axios");
+const Readline = SerialPort.parsers.Readline;
+//SerialPort.close() ;
+const puerto = new SerialPort("COM3", {
+  baudRate: 9600,
+});
 
+const parser = puerto.pipe(new Readline({ delimiter: "\r\n" }));
+
+//Funcion para mostrar una conexion exitosa con el servidor
+parser.on("open", function () {
+  console.log("La conexion ha sido establecida");
+});
 
 io.on("connection", (socket) => {
-  console.log("conectado como usuario...");
+  //console.log("conectado como usuario...");
 });
 
 async function sendMessage() {
@@ -122,4 +138,19 @@ var job = new CronJob(
   "America/Los_Angeles"
 );
 
+//Funcion que extrae los datos que se estan capturando desde el
+//sensor de arduino
+parser.on("data", function (data) {
+  lista = humoData.split(" ");
 
+  valorHumo = parseInt(lista[2]); //PPM
+
+  console.log("soy el valor desde el arduino ", valorHumo);
+  //io.emit("humo", data);
+});
+
+//Funcion que muestra un error en caso de desconexion
+//de Arduino y/o servidor
+puerto.on("error", function (error) {
+  //console.log(error);
+});
