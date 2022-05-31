@@ -26,6 +26,8 @@ jobs:
         run: npm i
         
       - name: RUN TEST
+     
         run: |
+          cd client
           npm run test
   
