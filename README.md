@@ -4,3 +4,4 @@ Integrantes:
  - Andres Gavino
  - Edgar Alvarado
  - Carla Caba
+ - Katherin Sanchez
