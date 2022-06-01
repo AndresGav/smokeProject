@@ -2,3 +2,4 @@
 Integrantes: 
  - Nestor Tigasi
  - Andres Gavino
+ - Edgar Alvarado
