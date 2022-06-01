@@ -3,4 +3,4 @@ Integrantes:
  - Nestor Tigasi
  - Andres Gavino
  - Edgar Alvarado
- - Katherin Sanchez
+ - Carla Caba
