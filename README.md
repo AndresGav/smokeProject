@@ -5,3 +5,4 @@ Integrantes:
  - Edgar Alvarado
  - Carla Caba
  - Katherin Sanchez
+ - Josue Tello
