@@ -1,6 +1,6 @@
 const request = require('supertest')
-const { app, server } = require('../../src/app')
-const { startServer } = require('../../src/server')
+const { app, server } = require('../src/app')
+const { startServer } = require('../src/server')
 
 // Simular servidor
 // const express = require('express')
@@ -30,7 +30,7 @@ describe('SERVER IS WORKING', () => {
       const res = await requestServer.get('/')
       expect(res.header['content-type']).toBe('text/html; charset=utf-8')
       expect(res.statusCode).toBe(200)
-      expect(res.text).toEqual('<h1>Hello world</h1>')
+      expect(res.text).toEqual('<h1>SERVIDOR OK !</h1>')
    })
    test('GET: Responds to /conectar', async () => {
       const res = await requestServer.get('/conectar')
