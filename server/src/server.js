@@ -3,9 +3,8 @@ const cronJobDefault = require("../utils/cronJob");
 const { default: axios } = require("axios");
 
 const startServer = async (port, isTest) => {
+  
   //FUNCION DE SIMULACION DATOS
-  console.log("TEST +++++++++", isTest);
-
   const urlFetchWs =
     "https://graph.facebook.com/v13.0/101495809253314/messages";
   const body = JSON.stringify({
@@ -66,7 +65,7 @@ const startServer = async (port, isTest) => {
 
 };
 
-startServer(4000, false);
+startServer(4000, true);
 
 
 module.exports = { startServer };
