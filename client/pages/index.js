@@ -12,7 +12,9 @@ const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
 export default function Home() {
+
   let session = true;
+  const [name, setName] = useState("");
 
   let valorPPM = 0;
   socket.on("humo", function (data) {
@@ -20,9 +22,8 @@ export default function Home() {
     valorPPM = data;
   });
 
-  function iniciarSesion() {
 
-  }
+  
 
   useEffect(() => {
     var CronJob = require("cron").CronJob;

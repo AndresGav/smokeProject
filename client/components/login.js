@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function LogInForm() {
-  useEffect(() => {}, []);
-
+  const [name, setName] = useState("");
   return (
     <>
       <p id="valorPPMID" hidden></p>
       <p id="cambiarBack" hidden></p>
-      <form class="w-screen h-screen  flex items-center justify-center">
+      <h1 className="text-center p-4 block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        LogIn
+      </h1>
+      <form class="flex items-center justify-center">
         <div>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -22,6 +24,8 @@ export default function LogInForm() {
                 id="grid-first-name"
                 type="text"
                 placeholder="Jane"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
               <p class="text-red-500 text-xs italic">
                 Please fill out this field.
@@ -119,7 +123,25 @@ export default function LogInForm() {
             </div>
           </div>
         </div>
+        <input
+            type="submit"
+            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          />
       </form>
+      <div className="flex gap-4 items-center justify-center w-full">
+        <div className="flex gap-4">
+
+           
+        </div>
+        <div>
+          <button
+            type="button"
+            class="focus:outline-none text-pruple-700   focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 border"
+          >
+            Ingresar
+          </button>
+        </div>
+      </div>
     </>
   );
 }
