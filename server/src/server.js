@@ -1,14 +1,40 @@
-const { server, io } = require('./app')
-const cronJobDefault = require('../utils/cronJob')
+const { server, io } = require("./app");
+const cronJobDefault = require("../utils/cronJob");
 const { default: axios } = require("axios");
 
-const startServer = async (port) => {
-   server.listen(port, () => {
-      console.log('>> Listening on *:4000')
-   })
-}
+const startServer = async (port,isTest=false) => {
+  //FUNCION DE SIMULACION DATOS
 
-startServer(4000)
+  if (!isTest) {
+    var CronJob = require("cron").CronJob;
+    var job = new CronJob(
+      "*/5 * * * * *",
+
+      function () {
+        const randomNumber = Math.floor(Math.random() * 500);
+
+        console.log("Ejecutando Cron: ", randomNumber);
+
+        if (randomNumber > 400) {
+          //sendMessage(); //NO DESCOMENTAR
+          //insertHumo(randomNumber, '123.123.123.123');
+          console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
+          //job.stop(5000)
+        }
+        io.emit("humo", randomNumber);
+      },
+      null,
+      true,
+      "America/Los_Angeles"
+    );
+  }
+
+  server.listen(port, () => {
+    console.log(">> Listening on *:4000");
+  });
+};
+
+startServer(4000,true);
 
 
 const urlFetchWs = "https://graph.facebook.com/v13.0/101495809253314/messages";
@@ -32,39 +58,14 @@ const configuracion = {
 };
 
 async function sendMessage() {
-   await axios
-     .post(urlFetchWs, body, configuracion)
-     .then((response) => console.log("Enviando mensaje"))
-     .catch((e) => {
-       console.log("Error", e);
-     });
- }
- 
+  await axios
+    .post(urlFetchWs, body, configuracion)
+    .then((response) => console.log("Enviando mensaje"))
+    .catch((e) => {
+      console.log("Error", e);
+    });
+}
 
-//FUNCION DE SIMULACION DATOS
-// var CronJob = require("cron").CronJob;
-// var job = new CronJob(
-//   "*/5 * * * * *",
+//cronJobDefault
 
-//   function () {
-//     const randomNumber = Math.floor(Math.random() * 500);
-
-//     console.log("Ejecutando Cron: ", randomNumber);
-
-//     if (randomNumber > 400) {
-//       //sendMessage(); //NO DESCOMENTAR
-//       //insertHumo(randomNumber, '123.123.123.123');
-//       console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
-//       //job.stop(5000)
-//     }
-//     io.emit("humo", randomNumber);
-//   },
-//   null,
-//   true,
-//   "America/Los_Angeles"
-// );
-
-//cronJobDefault 
-
-module.exports = { startServer }
-
+module.exports = { startServer };
