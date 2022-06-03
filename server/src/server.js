@@ -66,7 +66,7 @@ const startServer = async (port, isTest) => {
 
 };
 
-startServer(4000, true);
+startServer(4000, false);
 
 
 module.exports = { startServer };

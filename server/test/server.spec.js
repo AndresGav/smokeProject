@@ -49,7 +49,7 @@ describe('SERVER IS WORKING', () => {
 describe('SERVER LISTENING IN PORT', () => {
    test('Start SERVER', async () => {
       const port = 3001
-      await startServer(port)
+      await startServer(port, true)
       expect(server).toBeDefined()
       expect(server.address().port).toBe(port)
    })
