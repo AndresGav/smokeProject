@@ -7,14 +7,14 @@ import React from "react";
 import Chart from "chart.js";
 import CardInfoPpm from "../components/CardInfoPpm";
 import LogInForm from "../components/login";
+import { useLocalStorage } from "../hooks/localstorage";
 
 const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
 export default function Home() {
 
-  let session = true;
-  const [name, setName] = useState("");
+  const [session, setSessionn] = useLocalStorage("sessionn", "Asdfasdfasdf");
 
   let valorPPM = 0;
   socket.on("humo", function (data) {
@@ -22,25 +22,37 @@ export default function Home() {
     valorPPM = data;
   });
 
-
-  
+  // if (typeof window !== "undefined") {
+  //   console.log("You are on the browser");
+  //   // 👉️ can use localStorage here
+  //   let session = localStorage.getItem("sessionn");
+  // } else {
+  //   console.log("You are on the server");
+  //   // 👉️ can't use localStorage
+  // }
 
   useEffect(() => {
-    var CronJob = require("cron").CronJob;
-    var job = new CronJob(
-      "* * * * * *",
-      function () {
-        console.log("Mensaje Cada segundo");
-        if (session) {
-          changeBackColor(valorPPM);
-        }
-        //socket.emit("sendPPM", 34);
-      },
-      null,
-      true,
-      "America/Los_Angeles"
-    );
-  });
+    setSessionn(localStorage.getItem("sessionn"))
+    // let variable = localStorage.getItem("sessionn");
+     alert(session);
+  }, []);
+
+  // useEffect(() => {
+  //   var CronJob = require("cron").CronJob;
+  //   var job = new CronJob(
+  //     "* * * * * *",
+  //     function () {
+  //       console.log("Mensaje Cada segundo");
+  //       if (session) {
+  //         changeBackColor(valorPPM);
+  //       }
+  //       //socket.emit("sendPPM", 34);
+  //     },
+  //     null,
+  //     true,
+  //     "America/Los_Angeles"
+  //   );
+  // });
 
   return (
     <div>
@@ -53,7 +65,7 @@ export default function Home() {
 
       {!session && (
         <>
-          <LogInForm/>
+          <LogInForm />
         </>
       )}
       {session && (
