@@ -21,7 +21,7 @@ const startServer = async (port, isTest) => {
   const configuracion = {
     headers: {
       Authorization:
-        "Bearer EAAE5l6I2PG8BAMJ5xBQbNyx6t5IWtAuy5lDMq1MxYMT7g217N7TgqvSxZAvk7QFODxKGDett5RuNsPP7JvsOPbJkBspMimEMw6ZCdD87KehlBqeceexryKiBTZBH1ViahZC9W2A5UvYFzdm0MZBAp4Qprj9TcNPKgYzerxHgnDKDPLHZAZAZBTZBhMwbKR9Du1aNOvfsfuXudaVIdZBIiwhxGo7n1aWahc9R4ZD",
+        "Bearer EAAE5l6I2PG8BALlMWbjZAZCKA7uMEVTqCYNXURSlyhbJa4Sm2dTkPdxpB1g7xsoxB2L92isgcHvER9Ls8qODRwEa55gl5q3b7JLZAHDK8Yqaq2Y0F50nPTaVrYh61Bz9A8vaiBK5yZAlCgd8SVG6HE7JDBPBxUKO0VzCmlVo5Ay4ZCVLZAxhZCH2G2IAenmzUpu8puFS23KOQ3CsX4EOLWu6Cq9WWohUNkZD",
       "Content-Type": "application/json",
     },
   };
@@ -38,7 +38,7 @@ const startServer = async (port, isTest) => {
   if (!isTest) {
     var CronJob = require("cron").CronJob;
     var job = new CronJob(
-      "*/5 * * * * *",
+      "*/3 * * * * *",
 
       function () {
         const randomNumber = Math.floor(Math.random() * 500);
@@ -46,7 +46,7 @@ const startServer = async (port, isTest) => {
         console.log("Ejecutando Cron: ", randomNumber);
 
         if (randomNumber > 400) {
-          //sendMessage(); //NO DESCOMENTAR
+          sendMessage(); //NO DESCOMENTAR
           //insertHumo(randomNumber, '123.123.123.123');
           console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
           //job.stop(5000)
@@ -65,7 +65,7 @@ const startServer = async (port, isTest) => {
 
 };
 
-startServer(4000, true);
+startServer(4000, false);
 
 
 module.exports = { startServer };

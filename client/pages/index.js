@@ -17,24 +17,19 @@ export default function Home() {
   const [session, setSessionn] = useLocalStorage("sessionn", "Asdfasdfasdf");
 
   let valorPPM = 0;
+
   socket.on("humo", function (data) {
-    //console.log("DEL SERVER",data)
+   
     valorPPM = data;
+    changeBackColor(valorPPM);
   });
 
-  // if (typeof window !== "undefined") {
-  //   console.log("You are on the browser");
-  //   // 👉️ can use localStorage here
-  //   let session = localStorage.getItem("sessionn");
-  // } else {
-  //   console.log("You are on the server");
-  //   // 👉️ can't use localStorage
-  // }
+
 
   useEffect(() => {
     setSessionn(localStorage.getItem("sessionn"))
     // let variable = localStorage.getItem("sessionn");
-     alert(session);
+     //alert(session);
   }, []);
 
   // useEffect(() => {
