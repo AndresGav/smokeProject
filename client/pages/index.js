@@ -19,35 +19,14 @@ export default function Home() {
   let valorPPM = 0;
 
   socket.on("humo", function (data) {
-   
     valorPPM = data;
-    changeBackColor(valorPPM);
   });
 
 
 
   useEffect(() => {
-    setSessionn(localStorage.getItem("sessionn"))
-    // let variable = localStorage.getItem("sessionn");
-     //alert(session);
-  }, []);
-
-  // useEffect(() => {
-  //   var CronJob = require("cron").CronJob;
-  //   var job = new CronJob(
-  //     "* * * * * *",
-  //     function () {
-  //       console.log("Mensaje Cada segundo");
-  //       if (session) {
-  //         changeBackColor(valorPPM);
-  //       }
-  //       //socket.emit("sendPPM", 34);
-  //     },
-  //     null,
-  //     true,
-  //     "America/Los_Angeles"
-  //   );
-  // });
+    changeBackColor(valorPPM);
+  });
 
   return (
     <div>

@@ -46,7 +46,7 @@ const startServer = async (port, isTest) => {
         console.log("Ejecutando Cron: ", randomNumber);
 
         if (randomNumber > 400) {
-          sendMessage(); //NO DESCOMENTAR
+          //sendMessage(); //NO DESCOMENTAR
           //insertHumo(randomNumber, '123.123.123.123');
           console.log("ENVIAR MENSAJE ! y GUARDAR EN BD");
           //job.stop(5000)
@@ -65,7 +65,7 @@ const startServer = async (port, isTest) => {
 
 };
 
-startServer(4000, true); //true
+startServer(4000, false); //true
 
 
 module.exports = { startServer };

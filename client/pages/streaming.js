@@ -61,9 +61,9 @@ export default function StreamingChart() {
             x: {
               type: 'realtime',
               realtime: {
-                duration: 40000,
+                duration: 30000,
                 refresh: 3000,
-                delay: 200,
+                delay: 2000,
                 onRefresh: onRefresh
               },
             },
