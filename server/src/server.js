@@ -65,7 +65,8 @@ const startServer = async (port, isTest) => {
 
 };
 
-startServer(4000, false); //true
+//startServer(4000, false); //PARA LOCAL
+startServer(4000, true); //PARA PUSH
 
 
 module.exports = { startServer };
