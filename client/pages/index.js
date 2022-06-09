@@ -16,8 +16,8 @@ const socket = io("http://localhost:4000");
 export default function Home() {
   //const [session, setSessionn] = useLocalStorage("sessionn", false);
   const [isSession, setisSession] = useLocalStorage("isSession", false);
- 
-  const dataUser = userData
+  
+  const dataUser = require("../data/data.user.json")
 
   let founded =  dataUser.find(x => x.id == 1);
   console.log(founded?"TRUE":"FALSE")
@@ -29,10 +29,7 @@ export default function Home() {
     valorPPM = data;
   });
 
-  // useEffect(() => {
-  //   let variable = localStorage.getItem("user");
-  //   alert(user)
-  // }, []);
+
 
   useEffect(() => {
     changeBackColor(valorPPM);

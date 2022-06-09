@@ -1,4 +1,4 @@
-export var userData = [
+const  userData = [
   {
     id: 1,
     user: "admin",
@@ -21,3 +21,5 @@ export var userData = [
     phone: "123123123",
   },
 ];
+
+export default{userData}
