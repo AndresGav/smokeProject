@@ -8,13 +8,20 @@ import Chart from "chart.js";
 import CardInfoPpm from "../components/CardInfoPpm";
 import LogInForm from "../components/login";
 import { useLocalStorage } from "../hooks/localstorage";
+import { userData } from "../data/data.users";
 
 const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
 export default function Home() {
+  //const [session, setSessionn] = useLocalStorage("sessionn", false);
+  const [isSession, setisSession] = useLocalStorage("isSession", false);
+ 
+  const dataUser = userData
 
-  const [session, setSessionn] = useLocalStorage("sessionn", "Asdfasdfasdf");
+  let founded =  dataUser.find(x => x.id == 1);
+  console.log(founded?"TRUE":"FALSE")
+
 
   let valorPPM = 0;
 
@@ -22,7 +29,10 @@ export default function Home() {
     valorPPM = data;
   });
 
-
+  // useEffect(() => {
+  //   let variable = localStorage.getItem("user");
+  //   alert(user)
+  // }, []);
 
   useEffect(() => {
     changeBackColor(valorPPM);
@@ -37,16 +47,26 @@ export default function Home() {
         <script src="https://cdn.tailwindcss.com"></script>
       </Head>
 
-      {!session && (
+      {!isSession && (
         <>
           <LogInForm />
         </>
       )}
-      {session && (
+      {isSession && (
         <main
           id="cambiarBack"
-          className="w-screen h-screen bg-blue-500  text-center flex flex-col items-center justify-center gap-4"
+          className="w-screen h-screen bg-blue-500  text-center flex flex-col items-center justify-center gap-4 relative"
         >
+          <div className="absolute top-0 right-0 m-4">
+            <form>
+              <input
+                value={"Cerrar Sesion"}
+                type="submit"
+                onClick={() => localStorage.setItem("isSession", !isSession)}
+                class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+              />
+            </form>
+          </div>
           <CardInfoPpm />
           <div>
             <a

@@ -1,18 +1,21 @@
-const verifyPPM = require('../utils/verifyPPM');
-const validateUser = require('../utils/validateisUser')
+const verifyPPM = require('../utils/verifyPPM')
 const validatePassword = require('../utils/validatePassword')
+
+
+
+
 test('PPM > 400 ?', () => {
   expect(verifyPPM(402)).toBe(true);
 });
 
 
-test('isUser', () => {
-  expect(validateUser('admin','admin')).toBe(true);
-});
+// test('isUser', () => {
+//   expect(validateUserTest('admin','admin')).toBe("TRUE");
+// });
 
-test('isUser', () => {
-  expect(validateUser('no existe','no existe')).toBe(false);
-});
+// test('isUser', () => {
+//   expect(validateUserTest('no existe','no existe')).toBe("FALSE");
+// });
 
 test('isValidPassword', () => {
   expect(validatePassword('ab+k')).toBe(false);
