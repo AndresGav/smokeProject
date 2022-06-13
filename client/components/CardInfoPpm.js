@@ -14,6 +14,7 @@ export default function CardInfoPpm() {
           <p id="valorPPMID" className="font-bold text-xl ">
             VALOR PPM
           </p>
+          <p>PPM (partes por millon)</p>
         </div>
         <div></div>
       </div>

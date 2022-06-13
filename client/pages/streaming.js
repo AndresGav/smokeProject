@@ -98,7 +98,7 @@ export default function StreamingChart() {
   return (
     <>
       <div className="w-full text-center relative">
-        <div>
+        {/* <div>
          
           <form className="absolute top-0 right-0 m-4">
             <input
@@ -108,7 +108,7 @@ export default function StreamingChart() {
               class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
             />
           </form>
-        </div>
+        </div> */}
 
         <h1 className="m-10 font-bold">SISTEMA EN TIEMPO REAL | PPM</h1>
         <div className="m-10">
@@ -116,7 +116,7 @@ export default function StreamingChart() {
         </div>
         <div>
           <a
-            className="bg-gray-200 px-4 py-2 rounded-xl hover:bg-gray-300 shadow"
+            className="bg-purple-500 px-4 py-2 rounded-xl hover:bg-purple-600 shadow text-white font-bold"
             href="/"
           >
             Atras

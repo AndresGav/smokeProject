@@ -1,6 +1,6 @@
 export default function changeBackColor(valorHumo){
 
-    document.getElementById("valorPPMID").innerHTML = valorHumo
+    document.getElementById("valorPPMID").innerHTML = valorHumo 
 
     if ( valorHumo > 400 ){ //PARTES POR MILLON
         document.getElementById("cambiarBack").classList.add('bg-red-500');

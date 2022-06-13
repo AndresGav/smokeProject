@@ -5,7 +5,7 @@ export default function LogInForm() {
 
   const [user, setUser] = useLocalStorage("user", "");
   const [password, setPassword] = useLocalStorage("password", "");
-  const [isSession, setisSession] = useLocalStorage("isSession", false);
+  const [isSessionLocal, setisSessionLocal] = useLocalStorage("isSession", false);
 
 
 
@@ -33,8 +33,8 @@ export default function LogInForm() {
                   id="grid-first-name"
                   type="text"
                   placeholder="Jane"
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
+                  
+                  onChange={(e) => localStorage.setItem("user", e.target.value)}
                 />
         
               </div>
@@ -52,8 +52,8 @@ export default function LogInForm() {
                   id="grid-password"
                   type="password"
                   placeholder="******************"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  
+                  onChange={(e) => localStorage.setItem("password", e.target.value)}
                 />
                 <p class="text-gray-600 text-xs italic">
                   Make it as long and as crazy as you'd like
@@ -66,7 +66,7 @@ export default function LogInForm() {
           <div className="flex gap-4">
             <input
               type="submit"
-              onClick={() => localStorage.setItem("isSession",!isSession)}
+              onClick={() => localStorage.setItem("isSession", true)}
               class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
             />
           </div>

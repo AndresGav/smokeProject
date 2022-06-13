@@ -8,32 +8,58 @@ import Chart from "chart.js";
 import CardInfoPpm from "../components/CardInfoPpm";
 import LogInForm from "../components/login";
 import { useLocalStorage } from "../hooks/localstorage";
-import { userData } from "../data/data.users";
+
 
 const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
+function useStickyState(defaultValue, key) {
+  const [value, setValue] = React.useState(defaultValue);
+
+  React.useEffect(() => {
+    const stickyValue = window.localStorage.getItem(key);
+
+    if (stickyValue !== null) {
+      setValue(JSON.parse(stickyValue));
+    }
+  }, [key]);
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue];
+}
+
 export default function Home() {
-  //const [session, setSessionn] = useLocalStorage("sessionn", false);
-  const [isSession, setisSession] = useLocalStorage("isSession", false);
+  
+  //const [isSession, setisSession] = useState(typeof window === "undefined" &&  useLocalStorage("isSession"));
+  const [isSession, setisSession] = useStickyState("isSession", false);
+  //let isSession = useLocalStorage("isSession", false);
   
   const dataUser = require("../data/data.user.json")
+  
+  // let username =  "admin"
 
-  let founded =  dataUser.find(x => x.id == 1);
-  console.log(founded?"TRUE":"FALSE")
+  // let founded =  dataUser.find(x => x.user == username);
+  // console.log(founded?"TRUE":"FALSE")
 
+  // if (typeof window !== 'undefined') return <p>Cargando..</p>
 
   let valorPPM = 0;
 
   socket.on("humo", function (data) {
     valorPPM = data;
-  });
-
-
-
-  useEffect(() => {
     changeBackColor(valorPPM);
   });
+
+  // useEffect(() => {
+
+    //let sessionvar = Boolean( localStorage.getItem("isSession"))
+    // localStorage.setItem("isSession", !sessionvar)
+    // alert("SESSION? "+ sessionvar )
+
+  // },[]);
 
   return (
     <div>
@@ -57,17 +83,17 @@ export default function Home() {
           <div className="absolute top-0 right-0 m-4">
             <form>
               <input
-                value={"Cerrar Sesion"}
+                value={"Cerrar Sesión"}
                 type="submit"
                 onClick={() => localStorage.setItem("isSession", !isSession)}
-                class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                className="cursor-pointer  bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 "
               />
             </form>
           </div>
           <CardInfoPpm />
           <div>
             <a
-              className=" bg-gray-200 px-4 py-2 rounded-xl hover:bg-gray-300 shadow"
+              className=" px-4 py-2 rounded-xl  shadow  bg-purple-700 hover:bg-purple-800 text-white "
               href="/streaming"
             >
               Grafico en Tiempo Real
