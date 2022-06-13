@@ -29,8 +29,8 @@ async function insertHumo(nivel, ip) {
     return 1;
   } catch (error) {
     return 0;
-  } 
-}   
+  }
+}
 
 
 function insertarDato(valor, ip) {
