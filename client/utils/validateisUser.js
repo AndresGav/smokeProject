@@ -6,7 +6,9 @@ function validateUser(user, pass) {
   console.log("INFORMACION======>",userData)
   const dataUser = userData
 
-  let founded =  dataUser.find(x => x.user == user &&  x.password == pass);
+  let founded = true
+  //look for user
+  
   
   return founded?true:false;
 }
