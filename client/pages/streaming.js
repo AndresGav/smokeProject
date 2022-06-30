@@ -97,7 +97,7 @@ export default function StreamingChart() {
 
   return (
     <>
-      <div className="w-full text-center relative">
+      <div className="w-full h-screen text-center relative bg-blue-500">
         {/* <div>
          
           <form className="absolute top-0 right-0 m-4">
@@ -110,9 +110,9 @@ export default function StreamingChart() {
           </form>
         </div> */}
 
-        <h1 className="m-10 font-bold">SISTEMA EN TIEMPO REAL | PPM</h1>
+        <h1 className="p-10 font-bold text-3xl text-white">SISTEMA EN TIEMPO REAL | PPM</h1>
         <div className="m-10">
-          <canvas id="myChart" height="100" />
+          <canvas id="myChart" height="100" className="bg-white p-5 rounded-xl shadow-xl" />
         </div>
         <div>
           <a

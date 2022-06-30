@@ -23,10 +23,11 @@ export default function LogInForm() {
   useEffect(() => {});
 
   return (
-    <>
+    <div className="flex w-screen h-screen justify-center items-center">
+      <div className="bg-gray-100 p-8 rounded-xl shadow">
       <p id="valorPPMID" hidden></p>
       <p id="cambiarBack" hidden></p>
-      <h1 className="text-center p-4 block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+      <h1 className="text-center p-4 block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
         Registrar Usuario
       </h1>
       <form>
@@ -103,7 +104,8 @@ export default function LogInForm() {
           </div>
         </div>
         <div className="flex gap-4 items-center justify-center w-full">
-          <div className="flex gap-4">
+        
+          <div className="flex gap-4 w-full">
             <button
               onClick={() =>
                 function insdf() {
@@ -119,21 +121,25 @@ export default function LogInForm() {
                   alert("ASdfasdf");
                 }
               }
-              value="Registar"
-              class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-            />
+              
+              class="w-full focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+              
+            >
+            Registrar</button>
           </div>
-          <div>
+         
+        </div>
+        <div>
             <a
               href="/"
               type="button"
-              class="focus:outline-none text-pruple-700   focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 border"
+              class="focus:outline-none text-pruple-700   focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5  border w-full text-center"
             >
-              already have an account?
+              ya tienes una cuenta?
             </a>
           </div>
-        </div>
       </form>
-    </>
+      </div>
+    </div>
   );
 }

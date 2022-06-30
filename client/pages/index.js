@@ -1,51 +1,17 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import changeBackColor from "../utils/changeBackColor";
-import generateRanNumber from "../utils/randomNumber";
 
 import React from "react";
-import Chart from "chart.js";
-import CardInfoPpm from "../components/CardInfoPpm";
-import LogInForm from "../components/login";
-import { useLocalStorage } from "../hooks/localstorage";
 
+import CardInfoPpm from "../components/CardInfoPpm";
+
+import { getData } from "../controllers/users.controller";
 
 const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
-function useStickyState(defaultValue, key) {
-  const [value, setValue] = React.useState(defaultValue);
-
-  React.useEffect(() => {
-    const stickyValue = window.localStorage.getItem(key);
-
-    if (stickyValue !== null) {
-      setValue(JSON.parse(stickyValue));
-    }
-  }, [key]);
-
-  React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue];
-}
-
 export default function Home() {
-  
-  //const [isSession, setisSession] = useState(typeof window === "undefined" &&  useLocalStorage("isSession"));
-  const [isSession, setisSession] = useStickyState("isSession", false);
-  //let isSession = useLocalStorage("isSession", false);
-  
-  const dataUser = require("../data/data.user.json")
-  
-  // let username =  "admin"
-
-  // let founded =  dataUser.find(x => x.user == username);
-  // console.log(founded?"TRUE":"FALSE")
-
-  // if (typeof window !== 'undefined') return <p>Cargando..</p>
-
   let valorPPM = 0;
 
   socket.on("humo", function (data) {
@@ -53,13 +19,44 @@ export default function Home() {
     changeBackColor(valorPPM);
   });
 
-  // useEffect(() => {
+  const [isSession, setisSession] = useState(false);
+  const iniciarSesion = () => {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    //let sessionvar = Boolean( localStorage.getItem("isSession"))
-    // localStorage.setItem("isSession", !sessionvar)
-    // alert("SESSION? "+ sessionvar )
+    getData().then(async (resp) => {
+      if (!resp?.data) {
+        alert("UPS ALGO SALIO MAL");
+        return;
+      }
+      const usuarios = resp.data;
 
-  // },[]);
+      let founded = usuarios.find(
+        (x) =>
+          x.attributes.username == username && x.attributes.password == password
+      );
+      const isLogin = founded ? true : false;
+
+      console.log("RESPUESTA =====", founded);
+
+      localStorage.setItem("isSession", isLogin);
+
+      if (isLogin) {
+        localStorage.setItem("user", JSON.stringify(founded));
+        alert("Bienvenido");
+        setisSession(true);
+      } else {
+        alert("Usuario o contraseña incorrectos");
+        setisSession(false);
+      }
+    });
+
+    localStorage.setItem("isSession", true);
+  };
+
+  useEffect(() => {
+    setisSession(localStorage.getItem("isSession"));
+  }, []);
 
   return (
     <div>
@@ -71,32 +68,95 @@ export default function Home() {
       </Head>
 
       {!isSession && (
-        <>
-          <LogInForm />
-        </>
+        <div className="w-screen h-screen  flex justify-center items-center bg-blue-500">
+          <div className="bg-gray-100 p-8 rounded-xl shadow w-1/3">
+          <p id="valorPPMID" hidden></p>
+          <p id="cambiarBack" hidden></p>
+          <h1 className="text-center text-xl p-4 block uppercase tracking-wide text-gray-700  font-bold mb-2">
+            Iniciar Sesion
+          </h1>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              iniciarSesion();
+            }}
+          >
+            <div class="flex items-center justify-center w-full">
+              <div className="w-full">
+                {" "}
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      for="grid-first-name"
+                    >
+                      Usuario
+                    </label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      id="username"
+                      type="text"
+                      placeholder="Jane"
+                    />
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3">
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password"
+                    >
+                      Contraseña
+                    </label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="password"
+                      type="password"
+                      placeholder="******************"
+                    />
+                    <p class="text-gray-600 text-xs italic">
+                      Aun no tienes una cuenta?{" "}
+                      <a href="/register">click aqui</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-4 items-center justify-center w-full">
+              <div className="flex gap-4 w-full">
+                <input
+                  type={"submit"}
+                  class="w-full focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  value="Iniciar Sesion"
+                />
+              </div>
+            </div>
+          </form>
+          </div>
+          
+        </div>
       )}
       {isSession && (
         <main
           id="cambiarBack"
           className="w-screen h-screen bg-blue-500  text-center flex flex-col items-center justify-center gap-4 relative"
         >
-          <div className="absolute top-0 right-0 m-4">
-            <form>
-              <input
-                value={"Cerrar Sesión"}
-                type="submit"
-                onClick={() => localStorage.setItem("isSession", !isSession)}
-                className="cursor-pointer  bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 "
-              />
-            </form>
-          </div>
+          <button
+            onClick={() => {
+              localStorage.setItem("isSession", false);
+              setisSession(false);
+            }}
+            className="absolute top-0 right-0 m-4 py-2 px-4 bg-gray-300 rounded-xl font-bold"
+          >
+            Logout
+          </button>
           <CardInfoPpm />
           <div>
             <a
-              className=" px-4 py-2 rounded-xl  shadow  bg-purple-700 hover:bg-purple-800 text-white "
+              className=" px-4 py-2 rounded-xl  shadow  bg-purple-700 hover:bg-purple-800 text-white font-bold"
               href="/streaming"
             >
-              Grafico en Tiempo Real
+              Gráfico en Tiempo Real
             </a>
           </div>
         </main>
