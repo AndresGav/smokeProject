@@ -16,11 +16,11 @@ export default function TestPage(){
         <>
         <div>
         Hola
-        { data?.map((item) =>{
+        {/* { data?.map((item) =>{
             return (
                 <div>{item.attributes.email}</div>
             )
-        })}
+        })} */}
         </div>
         </>
     )
