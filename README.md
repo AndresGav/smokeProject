@@ -1,4 +1,4 @@
-#PROEJECT SMOKE DETECTION
+# PROJECT SMOKE DETECTION
 Integrantes: 
  - Nestor Tigasi
  - Andres Gavino
