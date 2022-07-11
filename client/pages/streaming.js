@@ -97,7 +97,7 @@ export default function StreamingChart() {
 
   return (
     <>
-      <div className="w-full h-screen text-center relative bg-blue-500">
+      <div className="w-full min-h-screen text-center relative bg-blue-300">
         {/* <div>
          
           <form className="absolute top-0 right-0 m-4">
@@ -114,7 +114,7 @@ export default function StreamingChart() {
         <div className="m-10">
           <canvas id="myChart" height="100" className="bg-white p-5 rounded-xl shadow-xl" />
         </div>
-        <div>
+        <div className="absolute top-4 left-4">
           <a
             className="bg-purple-500 px-4 py-2 rounded-xl hover:bg-purple-600 shadow text-white font-bold"
             href="/"

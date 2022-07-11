@@ -88,9 +88,9 @@ export default function LogInForm() {
                     placeholder="******************"
                  
                   />
-                  <p class="text-gray-600 text-xs italic">
+                  {/* <p class="text-gray-600 text-xs italic">
                     Aun no tienes una cuenta? <a href="/register">click aqui</a>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>

@@ -114,10 +114,10 @@ export default function Home() {
                       type="password"
                       placeholder="******************"
                     />
-                    <p class="text-gray-600 text-xs italic">
+                    {/* <p class="text-gray-600 text-xs italic">
                       Aun no tienes una cuenta?{" "}
                       <a href="/register">click aqui</a>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -151,7 +151,15 @@ export default function Home() {
             Logout
           </button>
           <CardInfoPpm />
-          <div>
+          <div className="">
+            <p
+              className=" px-4 py-2 rounded-xl  shadow bg-white text-black font-bold"
+              href="/streaming"
+            >
+              Ambiente Normal...
+            </p>
+          </div>
+          <div className="absolute top-4 left-4">
             <a
               className=" px-4 py-2 rounded-xl  shadow  bg-purple-700 hover:bg-purple-800 text-white font-bold"
               href="/streaming"
